@@ -1,0 +1,69 @@
+<div class="row" ng-controller="DashboardController as dsCtrl">
+    <div class="col-sm-12">
+        <div class="jumbotron" style="height: 100%;">
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-6">
+                    <a ng-click="dsCtrl.logout()" class=" btn btn-outline-white waves-effect"><i class="fa fa-sign-out mr-1"></i>logout</a>
+                </div> 
+                <div class="col-sm-12 col-md-6 col-lg-6">
+                    <a ng-click="dsCtrl.latestSearch()" class=" btn btn-outline-white waves-effect"><i class="fa fa-sign-out mr-1"></i>My Latest Search</a>
+                </div>
+            </div> 
+        </br>
+        <div class="table-responsive" ng-show="dsCtrl.showSearch">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Keyword</th>
+                            <th>Total results</th>
+                            <th>Date</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="single in dsCtrl.searchDatas">
+                            <th>{{single.keyword}}</th>
+                            <th>{{single.no_of_results}}</th>
+                            <th am-time-ago='single.date'></th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div></br>
+            <form name="githubForm" ng-submit = "dsCtrl.submitGithubForm(githubForm)" novalidate>
+                <p class="h3 white-text text-center mb-4">Search Github Repos</p>
+
+                <div class="md-form">
+                    <i class="fa fa-envelope prefix grey-text"></i>
+                    <input name="topic" ng-model = "dsCtrl.topic" type="text" id="materialFormLoginEmailEx" class="form-control" required="">
+                    <label for="materialFormLoginEmailEx"> Topic <strong class="saffText">*</strong></label>
+                </div>
+
+                <div class="text-center mt-4">
+                    <button ng-disabled = "dsCtrl.loading" class="btn btn-outline-pink waves-effect" type="submit"><i class="fa fa-sign-in mr-1"></i>search</button>
+                </div>
+
+                <div class="text-center mt-4">
+                    <div class="loader" ng-show="dsCtrl.loading"></div>
+                </div>
+            </form>
+
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Github Name</th>
+                            <th>Github Url</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="data in dsCtrl.githubDatas">
+                            <th>{{data.name}}</th>
+                            <th><a href="{{data.html_url}}" style="color: white;" target="_blank">{{data.html_url}}</a></th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
